@@ -1,0 +1,41 @@
+{% extends 'WER_app/base.html' %} 
+
+{% block body_block %}
+<<<<<<< HEAD
+ <!-- contact us form -->       
+<section class="mbr-section form1 cid-qv5ApHdm7c mbr-parallax-background" id="form1-2w" data-rv-view="9851">
+=======
+        
+>>>>>>> e2e1d82b3e2419e4017de39987f9499d809f4740
+
+    <!--This div element displays the title of the page and the blurb of text above the form -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="title col-12 col-lg-8">
+                <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2"><strong>CONTACT US</strong></h2>
+                <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-5">Question? Comment? Concern? Let us know below and we'll get back to you ASAP.</h3>
+            </div>
+        </div>
+    </div>
+<!--This set of div elements shows a thank you message to the user AFTER they have submitted the form -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="media-container-column col-lg-8" data-form-type="formoid">
+                    <div data-form-alert="" hidden="">
+                        Thanks for filling out the form!
+                    </div>
+            
+
+
+<!-- This section shows the actual form-->
+<h2>Contact Us</h2>
+                
+<form method="post" id="contact_form">
+    {% csrf_token %}
+    {{ form }}
+    <!--This is for the submit button, and the pop up box that displays afterwards-->
+    <input type="submit" value="Submit" onClick="alert('Thank you for contacting us. We will respond to you ASAP.');" />
+</form>
+
+
+{% endblock %}

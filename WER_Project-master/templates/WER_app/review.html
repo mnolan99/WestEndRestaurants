@@ -1,0 +1,121 @@
+{% extends 'WER_app/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+
+            <style> 
+                #Review {
+                  font-family: helvetica;
+                  font-size:20px;
+                  background-color: rgba(255,255,255,1);
+                  padding: 10px;
+                }
+                #Views {
+                  position: fixed;
+                  left: 50%;
+                  bottom: 20px;
+                  transform: translate(-50%, -50%);
+                  margin: 0 auto;
+                }
+                .checked {
+                  color: #f4f142;
+                }
+                
+                 #Buffer {
+                    opacity:0;
+                    padding: 20px;
+                }
+                
+            </style>
+    <div style = "background-color: rgba(255,255,255,0.5);">
+        <div style="padding:15px">
+            <a href="/WER_app/restaurant/" class="btn btn-lg btn-secondary" >Back to restaurants</a>
+            {% if pages %}
+            {% for page in pages %}
+            
+            {% if user.is_authenticated %}
+                
+                    <a href="/WER_app/add_review/{{ page.slug }}" class="btn btn-lg btn-secondary" >Add a New Review</a><br />
+           
+            {% else %}
+                <a href="/WER_app/register/" class="btn btn-lg btn-secondary" >Sign up to add a review!</a><br />
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
+
+
+            <div style="padding: 30px;">
+                
+        {% if pages %}
+            {% for page in pages %}
+        <div style="padding: 30px;">
+               <h1 ><u> {{page.title}} </u></h1>
+                </div>
+                 <div style="padding: 30px;"}>
+               <img src = "{{ MEDIA_URL}}{{page.picture}}" alt = "Restaurant Picture" />
+                </div>
+               <div>
+               <div id="map" style="float:right; position:relative; width:40%; height:350px; margin-top:-260px"></div>
+                <script>
+                // Initialize and add the map
+                function initMap() {
+                 // The location of Uluru
+                  var coords = {lat: {{page.latitude}}, lng: {{page.longitude}}};
+                  // The map, centered at Uluru
+                  var map = new google.maps.Map(
+                  document.getElementById('map'), {zoom: 10, center: coords});
+                 // The marker, positioned at Uluru
+                 var marker = new google.maps.Marker({position: coords, map: map});
+                }
+                </script>
+            <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6zeXEmA7r55_YKB5Zy6pXIiuarsCBhdE&callback=initMap">
+            </script>
+                </div>
+               
+               <div style="padding: 30px;"}>
+               <h4> {{page.description}} </h4>
+               <h4> Address: {{page.address}} </h4>
+               <h4> Opening Hours: {{page.openingHours}} </h4>
+                </div>
+        
+    
+            {% endfor %}
+        {% endif %}
+        
+                <div style="padding: 30px;"}>
+        {% if reviews %} 
+        
+            {% for review in reviews %} 
+                
+                <ul id = "Review">
+                
+                <ul>{{review.date_modified}}
+                    {{review.comment}} - Rating: {% with ''|center:review.avgRating as range %}
+                    {% for _ in range %}
+                         <span class="fa fa-star checked"></span>
+                    {% endfor %}
+                {% endwith %}
+                
+                </ul>
+                
+                </ul> 
+            {% endfor %} 
+                </div>
+                    <div style="padding: 30px;"}>
+        {% else %} 
+            <strong>There are no categories present.</strong> 
+        {% endif %} 
+                </div>
+        </div>
+           
+    </div>
+     <div>
+        <ul id="Buffer">Buffer</ul>
+        <div> 
+            {% endblock %}
+        </div>
+        
+       
+           

@@ -1,0 +1,50 @@
+{% extends 'WER_app/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+
+    <html> <!-- sets width of comments -->
+    <style>
+        #id_comment {
+            width: 500px;
+        }
+    </style>
+          
+    <head> 
+        <title>Review</title> 
+    </head> 
+     
+    <!-- adds a review-->    
+    <body> 
+        <h1>Add a Review</h1> 
+        <!-- prints the page title -->
+        <div>
+        {% if pages %}
+            {% for page in pages %}
+     
+               <h1><u> {{page.title}} </u></h1>
+     
+            {% endfor %}
+        {% endif %}
+        </div>
+        <!-- displays page fields -->
+        <div> 
+            <form id="review_form" method="post" action="/WER_app/add_review/{{page.slug}}/">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %} 
+                {{ hidden }} 
+            {% endfor %} 
+            {% for field in form.visible_fields %} 
+                <div>
+                    {{ field.errors }} 
+                    {{ field.help_text }} 
+                    {{ field }}
+                </div>
+            {% endfor %} 
+            <input id="id_title" name="title" type="hidden" value="{{page.title}}" /> 
+            <input type="submit" name="submit" value="Create Review" /> <!-- creates review -->
+            </form> 
+        </div> 
+  </body>
+{% endblock %}
+</html>

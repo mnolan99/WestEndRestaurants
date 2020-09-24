@@ -1,0 +1,65 @@
+{% extends 'WER_app/base.html' %}
+
+            {% block body_block %}
+          
+            <!-- style for each restaurant and buffer for better layout --> 
+           <style> 
+               #Restaurant {
+                  font-family: helvetica;
+                  font-size:20px;
+                  font-style:italic;
+                  background-color: rgba(255,255,255,0.5);
+                  padding: 40px;
+                }
+                  #Buffer {
+                    opacity:0;
+                    padding: 20px;
+                }
+                
+            </style>
+            
+        <!-- buttons to select which filter users want --> 
+        <div>
+            <a href="/WER_app/restaurant/" class="btn btn-lg btn-secondary">All</a>
+            <a href="/WER_app/onCampus/" class="btn btn-lg btn-secondary">On Campus</a>
+            <a href="/WER_app/offCampus/" class="btn btn-lg btn-secondary">Off Campus</a>         
+        </div>
+        
+            <!-- displays each restaurant with a picture, description, address and opening hours --> 
+        {% if pages %}
+            
+            {% for page in pages %}
+                {% if page.onCampus == False %}
+                    <div id='Restaurant'>
+                        <ul > 
+                        <ul> <h1><a href="/WER_app/page/{{ page.slug }}" style="color: black;">{{ page.title }}</a><br /></h1>
+                        <img src = "{{ MEDIA_URL}}{{page.picture}}" alt = "Restaurant Picture" style="width:250px;height:200px;" />     
+                        
+                     <div> 
+                            <p> {{page.description}} </p>
+                            <p> Address: {{page.address}} </p>
+                            <p> Opening Hours: {{page.openingHours}} </p>
+                     </div>
+                     </ul>
+                     </ul>
+                   </div>  
+                   
+                <br />
+                {% endif %}
+           {% endfor %}
+            
+        
+             
+        {% endif %}
+
+       
+
+        <!-- uses buffer to improve layout --> 
+        <ul id="Buffer">Buffer</ul>
+        <div> 
+            {% endblock %}
+        </div>
+        
+        
+        
+        

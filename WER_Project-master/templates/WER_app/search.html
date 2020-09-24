@@ -1,0 +1,44 @@
+{% extends 'WER_app/base.html' %}
+
+  {% block body_block %}
+             <!-- style for each restaurant --> 
+             <style> 
+               #Restaurant {
+                  font-family: helvetica;
+                  font-size:20px;
+                  font-style:italic;
+                  background-color: rgba(255,255,255,0.5);
+                  padding: 40px;
+                }
+            </style>
+    
+    
+
+        <!-- displays searched for restaurants --> 
+        {% if pages %}
+            
+            {% for page in pages %}
+                    <ul id="Restaurant"> 
+                        <ul> <h1><a href="/WER_app/page/{{ page.slug }}" style="color: black;">{{ page.title }}</a><br /></h1>
+                        <img src = "{{ MEDIA_URL}}{{page.picture}}" alt = "Restaurant Picture" style="width:250px;height:200px;" />
+                           
+                             <p> {{page.description}} </p>
+               <p> Address: {{page.address}} </p>
+               <p> Opening Hours: {{page.openingHours}} </p>
+        
+                        </ul>
+                    </ul>
+            <br />
+            {% endfor %}
+            
+        <!-- if there are no restaurants to match search that is shown and user can navigate back --> 
+         {% else %} 
+  <h1 class="cover-heading" style = "color: white; text-align: center;">Sorry, there are no results available for your search.</h1>
+        <p align="center">
+        <a href="/WER_app/review_sample/" class="btn btn-lg btn-secondary">Click here to return to all restaurants.</a>
+        </p>
+        {% endif %}
+     
+
+
+ {% endblock %}
